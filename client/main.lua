@@ -102,16 +102,16 @@ function ClearCurrentMission()
 
 end
 
-function StartTaxiJob()
+function StartAirlinesJob()
 
-	ShowLoadingPromt(_U('taking_service') .. 'Taxi/Uber', 5000, 3)
+	ShowLoadingPromt(_U('taking_service') .. 'Airlines', 5000, 3)
 	ClearCurrentMission()
 
 	OnJob = true
 
 end
 
-function StopTaxiJob()
+function StopAirlinesJob()
 
 	local playerPed = GetPlayerPed(-1)
 
@@ -133,7 +133,7 @@ function StopTaxiJob()
 
 end
 
-function OpenTaxiActionsMenu()
+function OpenAirlinesActionsMenu()
 
 	local elements = {
 		{label = _U('spawn_veh'), value = 'spawn_vehicle'},
@@ -148,9 +148,9 @@ function OpenTaxiActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open(
-		'default', GetCurrentResourceName(), 'taxi_actions',
+		'default', GetCurrentResourceName(), 'airlines_actions',
 		{
-			title    = 'Taxi',
+			title    = 'Airlines',
 			elements = elements
 		},
 		function(data, menu)
@@ -194,7 +194,7 @@ function OpenTaxiActionsMenu()
 									TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
 								end)
 
-								TriggerServerEvent('esx_society:removeVehicleFromGarage', 'taxi', vehicleProps)
+								TriggerServerEvent('esx_society:removeVehicleFromGarage', 'airlines', vehicleProps)
 
 							end,
 							function(data, menu)
@@ -202,7 +202,7 @@ function OpenTaxiActionsMenu()
 							end
 						)
 
-					end, 'taxi')
+					end, 'airlines')
 
 				else
 
@@ -213,7 +213,7 @@ function OpenTaxiActionsMenu()
 						local playerPed = GetPlayerPed(-1)
 						local coords    = Config.Zones.VehicleSpawnPoint.Pos
 
-						ESX.Game.SpawnVehicle('taxi', coords, 225.0, function(vehicle)
+						ESX.Game.SpawnVehicle('cls2015', coords, 225.0, function(vehicle)
 							TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
 						end)
 
@@ -226,7 +226,7 @@ function OpenTaxiActionsMenu()
 								local playerPed = GetPlayerPed(-1)
 								local coords    = Config.Zones.VehicleSpawnPoint.Pos
 
-								ESX.Game.SpawnVehicle('taxi', coords, 225.0, function(vehicle)
+								ESX.Game.SpawnVehicle('cls2015', coords, 225.0, function(vehicle)
 									TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
 								end)
 
@@ -236,7 +236,7 @@ function OpenTaxiActionsMenu()
 
 							end
 
-						end, 'taxi')
+						end, 'airlines')
 
 					end
 
@@ -245,7 +245,7 @@ function OpenTaxiActionsMenu()
 			end
 
 			if data.current.value == 'boss_actions' then
-				TriggerEvent('esx_society:openBossMenu', 'taxi', function(data, menu)
+				TriggerEvent('esx_society:openBossMenu', 'airlines', function(data, menu)
 					menu.close()
 				end)
 			end
@@ -255,7 +255,7 @@ function OpenTaxiActionsMenu()
 
 			menu.close()
 
-			CurrentAction     = 'taxi_actions_menu'
+			CurrentAction     = 'airlines_actions_menu'
 			CurrentActionMsg  = _U('press_to_open')
 			CurrentActionData = {}
 
@@ -264,14 +264,14 @@ function OpenTaxiActionsMenu()
 
 end
 
-function OpenMobileTaxiActionsMenu()
+function OpenMobileAirlinesActionsMenu()
 
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open(
-		'default', GetCurrentResourceName(), 'mobile_taxi_actions',
+		'default', GetCurrentResourceName(), 'mobile_airlines_actions',
 		{
-			title    = 'Taxi',
+			title    = 'Airlines',
 			elements = {
 				{label = _U('billing'), value = 'billing'}
 			}
@@ -300,7 +300,7 @@ function OpenMobileTaxiActionsMenu()
 							if closestPlayer == -1 or closestDistance > 3.0 then
 								ESX.ShowNotification(_U('no_players_near'))
 							else
-								TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_taxi', 'Taxi', amount)
+								TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_airlines', 'Airlines', amount)
 							end
 
 						end
@@ -323,7 +323,7 @@ end
 
 function OpenGetStocksMenu()
 
-	ESX.TriggerServerCallback('esx_taxijob:getStockItems', function(items)
+	ESX.TriggerServerCallback('esx_airlinesjob:getStockItems', function(items)
 
 		print(json.encode(items))
 
@@ -336,7 +336,7 @@ function OpenGetStocksMenu()
 	  ESX.UI.Menu.Open(
 	    'default', GetCurrentResourceName(), 'stocks_menu',
 	    {
-	      title    = 'Taxi Stock',
+	      title    = 'Airlines Stock',
 	      elements = elements
 	    },
 	    function(data, menu)
@@ -359,7 +359,7 @@ function OpenGetStocksMenu()
 				    	menu.close()
 				    	OpenGetStocksMenu()
 
-							TriggerServerEvent('esx_taxijob:getStockItem', itemName, count)
+							TriggerServerEvent('esx_airlinesjob:getStockItem', itemName, count)
 						end
 
 					end,
@@ -380,7 +380,7 @@ end
 
 function OpenPutStocksMenu()
 
-	ESX.TriggerServerCallback('esx_taxijob:getPlayerInventory', function(inventory)
+	ESX.TriggerServerCallback('esx_airlinesjob:getPlayerInventory', function(inventory)
 
 		local elements = {}
 
@@ -420,7 +420,7 @@ function OpenPutStocksMenu()
 				    	menu.close()
 				    	OpenPutStocksMenu()
 
-							TriggerServerEvent('esx_taxijob:putStockItems', itemName, count)
+							TriggerServerEvent('esx_airlinesjob:putStockItems', itemName, count)
 						end
 
 					end,
@@ -450,10 +450,10 @@ AddEventHandler('esx:setJob', function(job)
 	PlayerData.job = job
 end)
 
-AddEventHandler('esx_taxijob:hasEnteredMarker', function(zone)
+AddEventHandler('esx_airlinesjob:hasEnteredMarker', function(zone)
 
-	if zone == 'TaxiActions' then
-		CurrentAction     = 'taxi_actions_menu'
+	if zone == 'AirlinesActions' then
+		CurrentAction     = 'airlines_actions_menu'
 		CurrentActionMsg  = _U('press_to_open')
 		CurrentActionData = {}
 	end
@@ -472,7 +472,7 @@ AddEventHandler('esx_taxijob:hasEnteredMarker', function(zone)
 
 end)
 
-AddEventHandler('esx_taxijob:hasExitedMarker', function(zone)
+AddEventHandler('esx_airlinesjob:hasExitedMarker', function(zone)
 	ESX.UI.Menu.CloseAll()
 	CurrentAction = nil
 end)
@@ -481,8 +481,8 @@ RegisterNetEvent('esx_phone:loaded')
 AddEventHandler('esx_phone:loaded', function(phoneNumber, contacts)
 
 	local specialContact = {
-		name       = 'Taxi',
-		number     = 'taxi',
+		name       = 'Airlines',
+		number     = 'airlines',
 		base64Icon = 'data:image/png;base64,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',
 	}
 
@@ -493,7 +493,7 @@ end)
 -- Create Blips
 Citizen.CreateThread(function()
 
-	local blip = AddBlipForCoord(Config.Zones.TaxiActions.Pos.x, Config.Zones.TaxiActions.Pos.y, Config.Zones.TaxiActions.Pos.z)
+	local blip = AddBlipForCoord(Config.Zones.AirlinesActions.Pos.x, Config.Zones.AirlinesActions.Pos.y, Config.Zones.AirlinesActions.Pos.z)
 
 	SetBlipSprite (blip, 198)
 	SetBlipDisplay(blip, 4)
@@ -502,7 +502,7 @@ Citizen.CreateThread(function()
 	SetBlipAsShortRange(blip, true)
 
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Taxi")
+	AddTextComponentString("Airlines")
 	EndTextCommandSetBlipName(blip)
 
 end)
@@ -513,7 +513,7 @@ Citizen.CreateThread(function()
 
 		Wait(0)
 
-		if PlayerData.job ~= nil and PlayerData.job.name == 'taxi' then
+		if PlayerData.job ~= nil and PlayerData.job.name == 'airlines' then
 
 			local coords = GetEntityCoords(GetPlayerPed(-1))
 
@@ -534,7 +534,7 @@ Citizen.CreateThread(function()
 
 		Wait(0)
 
-		if PlayerData.job ~= nil and PlayerData.job.name == 'taxi' then
+		if PlayerData.job ~= nil and PlayerData.job.name == 'airlines' then
 
 			local coords      = GetEntityCoords(GetPlayerPed(-1))
 			local isInMarker  = false
@@ -550,12 +550,12 @@ Citizen.CreateThread(function()
 			if (isInMarker and not HasAlreadyEnteredMarker) or (isInMarker and LastZone ~= currentZone) then
 				HasAlreadyEnteredMarker = true
 				LastZone                = currentZone
-				TriggerEvent('esx_taxijob:hasEnteredMarker', currentZone)
+				TriggerEvent('esx_airlinesjob:hasEnteredMarker', currentZone)
 			end
 
 			if not isInMarker and HasAlreadyEnteredMarker then
 				HasAlreadyEnteredMarker = false
-				TriggerEvent('esx_taxijob:hasExitedMarker', LastZone)
+				TriggerEvent('esx_airlinesjob:hasExitedMarker', LastZone)
 			end
 
 		end
@@ -563,7 +563,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- Taxi Job
+-- Airlines Job
 Citizen.CreateThread(function()
 
 	while true do
@@ -663,7 +663,7 @@ Citizen.CreateThread(function()
 								TaskGoStraightToCoord(CurrentCustomer,  TargetCoords.x,  TargetCoords.y,  TargetCoords.z,  1.0,  -1,  0.0,  0.0)
 								SetEntityAsMissionEntity(CurrentCustomer,  false, true)
 
-								TriggerServerEvent('esx_taxijob:success')
+								TriggerServerEvent('esx_airlinesjob:success')
 
 								RemoveBlip(DestinationBlip)
 
@@ -787,10 +787,10 @@ Citizen.CreateThread(function()
 			AddTextComponentString(CurrentActionMsg)
 			DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 
-			if IsControlPressed(0,  Keys['E']) and PlayerData.job ~= nil and PlayerData.job.name == 'taxi' and (GetGameTimer() - GUI.Time) > 300 then
+			if IsControlPressed(0,  Keys['E']) and PlayerData.job ~= nil and PlayerData.job.name == 'airlines' and (GetGameTimer() - GUI.Time) > 300 then
 
-				if CurrentAction == 'taxi_actions_menu' then
-					OpenTaxiActionsMenu()
+				if CurrentAction == 'airlines_actions_menu' then
+					OpenAirlinesActionsMenu()
 				end
 
 				if CurrentAction == 'delete_vehicle' then
@@ -799,11 +799,11 @@ Citizen.CreateThread(function()
 
 					if Config.EnableSocietyOwnedVehicles then
 						local vehicleProps = ESX.Game.GetVehicleProperties(CurrentActionData.vehicle)
-						TriggerServerEvent('esx_society:putVehicleInGarage', 'taxi', vehicleProps)
+						TriggerServerEvent('esx_society:putVehicleInGarage', 'airlines', vehicleProps)
 					else
-						if GetEntityModel(CurrentActionData.vehicle) == GetHashKey('taxi') then
+						if GetEntityModel(CurrentActionData.vehicle) == GetHashKey('airlines') then
 							if Config.MaxInService ~= -1 then
-								TriggerServerEvent('esx_service:disableService', 'taxi')
+								TriggerServerEvent('esx_service:disableService', 'airlines')
 							end
 						end
 					end
@@ -819,18 +819,18 @@ Citizen.CreateThread(function()
 
 		end
 
-		if IsControlPressed(0,  Keys['F6']) and Config.EnablePlayerManagement and PlayerData.job ~= nil and PlayerData.job.name == 'taxi' and (GetGameTimer() - GUI.Time) > 150 then
-			OpenMobileTaxiActionsMenu()
+		if IsControlPressed(0,  Keys['F6']) and Config.EnablePlayerManagement and PlayerData.job ~= nil and PlayerData.job.name == 'airlines' and (GetGameTimer() - GUI.Time) > 150 then
+			OpenMobileAirlinesActionsMenu()
 			GUI.Time = GetGameTimer()
 		end
 
 		if IsControlPressed(0,  Keys['DELETE']) and (GetGameTimer() - GUI.Time) > 150 then
 
 			if OnJob then
-				StopTaxiJob()
+				StopAirlinesJob()
 			else
 
-				if PlayerData.job ~= nil and PlayerData.job.name == 'taxi' then
+				if PlayerData.job ~= nil and PlayerData.job.name == 'airlines' then
 
 					local playerPed = GetPlayerPed(-1)
 
@@ -839,12 +839,12 @@ Citizen.CreateThread(function()
 						local vehicle = GetVehiclePedIsIn(playerPed,  false)
 
 						if PlayerData.job.grade >= 3 then
-							StartTaxiJob()
+							StartAirlinesJob()
 						else
-							if GetEntityModel(vehicle) == GetHashKey('taxi') then
-								StartTaxiJob()
+							if GetEntityModel(vehicle) == GetHashKey('airlines') then
+								StartAirlinesJob()
 							else
-								ESX.ShowNotification(_U('must_in_taxi'))
+								ESX.ShowNotification(_U('must_in_airlines'))
 							end
 						end
 
@@ -853,7 +853,7 @@ Citizen.CreateThread(function()
 						if PlayerData.job.grade >= 3 then
 							ESX.ShowNotification(_U('must_in_vehicle'))
 						else
-							ESX.ShowNotification(_U('must_in_taxi'))
+							ESX.ShowNotification(_U('must_in_airlines'))
 						end
 
 					end

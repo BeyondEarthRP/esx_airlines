@@ -3,13 +3,13 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 if Config.MaxInService ~= -1 then
-	TriggerEvent('esx_service:activateService', 'taxi', Config.MaxInService)
+	TriggerEvent('esx_service:activateService', 'airlines', Config.MaxInService)
 end
 
-TriggerEvent('esx_phone:registerNumber', 'taxi', _U('taxi_client'), true, true)
+TriggerEvent('esx_phone:registerNumber', 'airlines', _U('airlines_client'), true, true)
 
-RegisterServerEvent('esx_taxijob:success')
-AddEventHandler('esx_taxijob:success', function()
+RegisterServerEvent('esx_airlinesjob:success')
+AddEventHandler('esx_airlinesjob:success', function()
 
 	math.randomseed(os.time())
 
@@ -21,7 +21,7 @@ AddEventHandler('esx_taxijob:success', function()
   	total = total * 2
   end
 
-  TriggerEvent('esx_addonaccount:getSharedAccount', 'society_taxi', function(account)
+  TriggerEvent('esx_addonaccount:getSharedAccount', 'society_airlines', function(account)
   	societyAccount = account
   end)
 
@@ -45,12 +45,12 @@ AddEventHandler('esx_taxijob:success', function()
 
 end)
 
-RegisterServerEvent('esx_taxijob:getStockItem')
-AddEventHandler('esx_taxijob:getStockItem', function(itemName, count)
+RegisterServerEvent('esx_airlinesjob:getStockItem')
+AddEventHandler('esx_airlinesjob:getStockItem', function(itemName, count)
 
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_taxi', function(inventory)
+	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_airlines', function(inventory)
 
 		local item = inventory.getItem(itemName)
 
@@ -67,20 +67,20 @@ AddEventHandler('esx_taxijob:getStockItem', function(itemName, count)
 
 end)
 
-ESX.RegisterServerCallback('esx_taxijob:getStockItems', function(source, cb)
+ESX.RegisterServerCallback('esx_airlinesjob:getStockItems', function(source, cb)
 
-	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_taxi', function(inventory)
+	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_airlines', function(inventory)
 		cb(inventory.items)
 	end)
 
 end)
 
-RegisterServerEvent('esx_taxijob:putStockItems')
-AddEventHandler('esx_taxijob:putStockItems', function(itemName, count)
+RegisterServerEvent('esx_airlinesjob:putStockItems')
+AddEventHandler('esx_airlinesjob:putStockItems', function(itemName, count)
 
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_taxi', function(inventory)
+	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_airlines', function(inventory)
 
 		local item = inventory.getItem(itemName)
 
@@ -97,7 +97,7 @@ AddEventHandler('esx_taxijob:putStockItems', function(itemName, count)
 
 end)
 
-ESX.RegisterServerCallback('esx_taxijob:getPlayerInventory', function(source, cb)
+ESX.RegisterServerCallback('esx_airlinesjob:getPlayerInventory', function(source, cb)
 
 	local xPlayer    = ESX.GetPlayerFromId(source)
 	local items      = xPlayer.inventory
