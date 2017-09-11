@@ -194,7 +194,7 @@ function OpenAirlinesActionsMenu()
 									TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
 								end)
 
-								TriggerServerEvent('esx_society:removeVehicleFromGarage', 'airlines', vehicleProps)
+								TriggerServerEvent('esx_society:removeVehicleFromGarage', 'luxor2', vehicleProps)
 
 							end,
 							function(data, menu)
@@ -202,7 +202,7 @@ function OpenAirlinesActionsMenu()
 							end
 						)
 
-					end, 'airlines')
+					end, 'luxor2')
 
 				else
 
@@ -213,7 +213,7 @@ function OpenAirlinesActionsMenu()
 						local playerPed = GetPlayerPed(-1)
 						local coords    = Config.Zones.VehicleSpawnPoint.Pos
 
-						ESX.Game.SpawnVehicle('cls2015', coords, 225.0, function(vehicle)
+						ESX.Game.SpawnVehicle('luxor2', coords, 225.0, function(vehicle)
 							TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
 						end)
 
@@ -226,7 +226,7 @@ function OpenAirlinesActionsMenu()
 								local playerPed = GetPlayerPed(-1)
 								local coords    = Config.Zones.VehicleSpawnPoint.Pos
 
-								ESX.Game.SpawnVehicle('cls2015', coords, 225.0, function(vehicle)
+								ESX.Game.SpawnVehicle('luxor2', coords, 225.0, function(vehicle)
 									TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
 								end)
 
@@ -236,7 +236,7 @@ function OpenAirlinesActionsMenu()
 
 							end
 
-						end, 'airlines')
+						end, 'luxor2')
 
 					end
 
@@ -495,7 +495,7 @@ Citizen.CreateThread(function()
 
 	local blip = AddBlipForCoord(Config.Zones.AirlinesActions.Pos.x, Config.Zones.AirlinesActions.Pos.y, Config.Zones.AirlinesActions.Pos.z)
 
-	SetBlipSprite (blip, 372)
+	SetBlipSprite (blip, 90)
 	SetBlipDisplay(blip, 4)
 	SetBlipScale  (blip, 1.0)
 	SetBlipColour (blip, 5)

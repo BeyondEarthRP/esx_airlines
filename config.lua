@@ -3,26 +3,26 @@ Config.DrawDistance               = 100.0
 Config.NPCJobEarnings             = {min = 50, max = 200}
 Config.MaxInService               = -1
 Config.EnablePlayerManagement     = true
-Config.EnableSocietyOwnedVehicles = true
+Config.EnableSocietyOwnedVehicles = false
 Config.Locale                     = 'fr'
 
 Config.Zones = {
 
 	AirlinesActions = {
-		Pos   = {x = -929.09252929688, y = -2937.8334960938, z = 13.944664955139},
+		Pos   = {x = -929.09252929688, y = -2937.8334960938, z = 12.944664955139},
 		Size  = {x = 1.5, y = 1.5, z = 1.0},
 		Color = {r = 204, g = 204, b = 0},
 		Type  = 1
 	},
 
 	VehicleSpawnPoint = {
-		Pos   = {x = -969.31097412109, y = -3000.8447265625, z = 13.945067405701},
+		Pos   = {x = -969.31097412109, y = -3000.8447265625, z = 12.945067405701},
 		Size  = {x = 1.5, y = 1.5, z = 1.0},
 		Type  = -1
 	},
 
 	VehicleDeleter = {
-		Pos   = {x = -953.57843017578, y = -2970.4619140625, z = 13.945065498352},
+		Pos   = {x = -953.57843017578, y = -2970.4619140625, z = 12.945065498352},
 		Size  = {x = 3.0, y = 3.0, z = 1.0},
 		Color = {r = 204, g = 204, b = 0},
 		Type  = 1
