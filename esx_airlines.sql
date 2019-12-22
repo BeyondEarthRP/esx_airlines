@@ -13,10 +13,9 @@ INSERT INTO `jobs` (name, label) VALUES
 ;
 
 INSERT INTO `job_grades` (job_name, grade, name, label, salary, skin_male, skin_female) VALUES
-  ('airlines',0,'recrue','Recrue',12,'{}','{}'),
-  ('airlines',1,'chauffeur','Chauffeur',24,'{}','{}'),
-  ('airlines',2,'pilote','Pilote',36,'{}','{}'),
-  ('airlines',3,'gerant','Gerant',48,'{}','{}'),
-  ('airlines',4,'boss','Patron',0,'{}','{}')
+  ('airlines',0,'recrue','Trainee',30,'{}','{}'),
+  ('airlines',1,'chauffeur','First Officer',40,'{}','{}'),
+  ('airlines',2,'pilote','Pilot',50,'{}','{}'),
+  ('airlines',3,'gerant','Manager',60,'{}','{}'),
+  ('airlines',4,'boss','Boss',0,'{}','{}')
 ;
-
